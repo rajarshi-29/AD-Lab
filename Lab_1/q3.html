@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Table 3</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        height: 100vh;
+      }
+
+      table.grid {
+        border-collapse: collapse;
+        border: 2px solid black;
+        transform: scale(0.9);
+      }
+
+      .cell {
+        border: 1px solid black;
+        box-sizing: border-box;
+        height: 55px;
+      }
+
+      .c2A {
+        border-left: 2px dashed red;
+        border-right: 2px dashed red;
+      }
+
+      .d3dash {
+        border-right: 2px dashed red;
+      }
+
+      .e4dash {
+        border-left: 2px dashed red;
+        border-right: 2px dashed red;
+      }
+
+      .b2 {
+        border-bottom: 2px dashed red;
+      }
+
+      .b5 {
+        border-top: 2px dashed red;
+        border-bottom: 2px dashed red;
+      }
+
+      .c1dash {
+        border-bottom: 2px dashed red;
+      }
+
+      .c3dash {
+        border-bottom: none;
+      }
+    </style>
+  </head>
+  <body>
+    <table class="grid">
+      <colgroup>
+        <col style="width: 250px" />
+        <col style="width: 110px" />
+        <col style="width: 170px" />
+        <col style="width: 80px" />
+        <col style="width: 190px" />
+      </colgroup>
+
+      <!-- Row A -->
+      <tr class="rA">
+        <td class="cell rA c1"></td>
+        <td class="cell rA c2A"></td>
+        <td class="cell rA c3"></td>
+        <td class="cell rA c4"></td>
+        <td class="cell rA c5"></td>
+      </tr>
+
+      <!-- Row B -->
+      <tr class="rB">
+        <td class="cell rB c1"></td>
+        <td class="cell rB c2 b2"></td>
+        <td class="cell rB c3"></td>
+        <td class="cell rB c4"></td>
+        <td class="cell rB c5 b5"></td>
+      </tr>
+
+      <!-- Row C -->
+      <tr class="rC">
+        <td class="cell rC c1 c1dash"></td>
+        <td class="cell rC c2"></td>
+        <td class="cell rC c3dash"></td>
+        <td class="cell rC c4"></td>
+        <td class="cell rC c5"></td>
+      </tr>
+
+      <!-- Row D -->
+      <tr class="rD">
+        <td class="cell rD c1"></td>
+        <td class="cell rD c2"></td>
+        <td class="cell rD c3 d3dash"></td>
+        <td class="cell rD c4"></td>
+        <td class="cell rD c5"></td>
+      </tr>
+
+      <!-- Row E -->
+      <tr class="rE">
+        <td class="cell rE c1"></td>
+        <td class="cell rE c2"></td>
+        <td class="cell rE c3"></td>
+        <td class="cell rE c4 e4dash"></td>
+        <td class="cell rE c5"></td>
+      </tr>
+    </table>
+  </body>
+</html>
