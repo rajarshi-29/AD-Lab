@@ -14,6 +14,7 @@ btn.addEventListener("click", (e) => {
   let years = today.getFullYear() - dob.getFullYear();
   let months = today.getMonth() - dob.getMonth();
   let days = today.getDate() - dob.getDate();
+  
   if (days < 0) {
     months--;
     const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AD Lab 4C</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        h2 {
+            margin-top: 40px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 8px 12px;
+            margin: 5px 0;
+            background: #f2f2f2;
+            cursor: pointer;
+            width: fit-content;
+            border-radius: 5px;
+        }
+
+        li:hover {
+            background: #ddd;
+        }
+
+        input, button {
+            padding: 8px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>AD Lab 4C – All Assignments</h1>
+
+<!-- ================= QUESTION 3 UI ================= -->
+
+<h2>Question 3: Dynamic Click Counter</h2>
+
+<input type="text" id="nameInput" placeholder="Enter name">
+<button onclick="addPerson()">Add Person</button>
+
+<ul id="peopleList"></ul>
+
+<script>
+/* =====================================================
+   QUESTION 1: Employee Tracking
+===================================================== */
+
+class Employee {
+    constructor(firstName, lastName, yearsWorked) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.yearsWorked = yearsWorked;
+    }
+}
+
+Employee.prototype.getDetails = function () {
+    return `${this.firstName} ${this.lastName} has worked for ${this.yearsWorked} years at the company.`;
+};
+
+const employees = [
+    new Employee("Ravi", "Sharma", 5),
+    new Employee("Anita", "Verma", 3),
+    new Employee("Kunal", "Mehta", 8)
+];
+
+employees.forEach(emp => {
+    console.log(emp.getDetails());
+});
+
+
+/* =====================================================
+   QUESTION 2: Menu Price Calculator
+===================================================== */
+
+class Order {
+    #priceItem1 = 100;   // private field
+    #priceItem2 = 150;   // private field
+
+    constructor(quantity1, quantity2) {
+        this.quantity1 = quantity1;
+        this.quantity2 = quantity2;
+    }
+
+    calculateTotal() {
+        return (this.quantity1 * this.#priceItem1) +
+               (this.quantity2 * this.#priceItem2);
+    }
+
+    get totalCost() {
+        return this.calculateTotal();
+    }
+}
+
+const order1 = new Order(2, 1);
+const order2 = new Order(1, 3);
+const order3 = new Order(4, 2);
+
+console.log("Order 1 Total: ₹" + order1.totalCost);
+console.log("Order 2 Total: ₹" + order2.totalCost);
+console.log("Order 3 Total: ₹" + order3.totalCost);
+
+
+/* =====================================================
+   QUESTION 3: Dynamic Clickable List
+===================================================== */
+
+const peopleList = document.getElementById("peopleList");
+
+function createPerson(name) {
+    let count = 0;
+
+    const li = document.createElement("li");
+    li.textContent = `${name} clicked ${count} times`;
+
+    li.addEventListener("click", () => {
+        count++;
+        li.textContent = `${name} clicked ${count} times`;
+    });
+
+    peopleList.appendChild(li);
+}
+
+// Default people
+createPerson("Rahul");
+createPerson("Sneha");
+createPerson("Amit");
+
+function addPerson() {
+    const input = document.getElementById("nameInput");
+    const name = input.value.trim();
+
+    if (name !== "") {
+        createPerson(name);
+        input.value = "";
+    }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Problem Solutions Dashboard</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; margin: 0; padding: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 40px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .card { background: var(--card); padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; }
+        .card h3 { margin-top: 0; color: var(--primary); font-size: 1.1rem; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        input, select, button { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+        button { background: var(--primary); color: white; border: none; cursor: pointer; font-weight: bold; transition: opacity 0.2s; }
+        button:hover { opacity: 0.9; }
+        button:disabled { background: #ccc; cursor: not-allowed; }
+        .result { margin-top: 10px; padding: 10px; background: #f1f5f9; border-radius: 4px; font-weight: 500; min-height: 20px; }
+        .hidden { display: none; }
+        .completed { text-decoration: line-through; color: gray; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        table, th, td { border: 1px solid #ddd; text-align: center; }
+        .highlight { background-color: yellow; font-weight: bold; }
+        #imagePreview { max-width: 100%; margin-top: 10px; border-radius: 8px; }
+        .animated-letter { display: inline-block; opacity: 0; transform: translateY(10px); transition: all 0.3s; }
+        .letter-visible { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>LAB-4A ASSIGNMENT</h1>
+        
+    </header>
+
+    <div class="grid">
+        <div class="card">
+            <h3>1. Age Calculator</h3>
+            <input type="date" id="dobInput">
+            <button onclick="calculateAge()">Calculate Age</button>
+            <div id="ageResult" class="result"></div>
+        </div>
+
+        <div class="card">
+            <h3>2. Dynamic List</h3>
+            <input type="text" id="listItemInput" placeholder="Enter item...">
+            <button onclick="addToList()">Add to List</button>
+            <ol id="orderedList"></ol>
+        </div>
+
+        <div class="card">
+            <h3>3. Font Style Changer</h3>
+            <select id="fontSelect" onchange="changeFont()">
+                <option value="Arial">Arial</option>
+                <option value="'Courier New', Courier, monospace">Courier New</option>
+                <option value="'Times New Roman', Times, serif">Times New Roman</option>
+                <option value="cursive">Cursive</option>
+            </select>
+            <p id="fontText">This text changes its style!</p>
+        </div>
+
+        <div class="card">
+            <h3>4. Factorial Calculator</h3>
+            <input type="number" id="factInput" placeholder="Enter number">
+            <button onclick="showFactorial()">Calculate</button>
+            <div id="factResult" class="result"></div>
+        </div>
+
+        <div class="card">
+            <h3>5. Paragraph Highlighter</h3>
+            <input type="text" id="searchKey" placeholder="Search keyword..." onkeyup="highlightText()">
+            <div id="textContainer">
+                <p>JavaScript is a versatile language.</p>
+                <p>Web development is fun and rewarding.</p>
+                <p>Learning logic builds great programs.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>6. Table Generator</h3>
+            <input type="number" id="rows" placeholder="Rows">
+            <input type="number" id="cols" placeholder="Cols">
+            <button onclick="generateTable()">Generate</button>
+            <div id="tableArea"></div>
+        </div>
+
+        <div class="card">
+            <h3>7. Image Preview</h3>
+            <input type="file" id="imageInput" accept="image/*" onchange="previewImg()">
+            <img id="imagePreview" src="" alt="Preview" class="hidden">
+        </div>
+
+        <div class="card">
+            <h3>8. To-Do List</h3>
+            <input type="text" id="todoInput" placeholder="New task...">
+            <button onclick="addTodo()">Add</button>
+            <ul id="todoList" style="list-style:none; padding:0;"></ul>
+        </div>
+
+        <div class="card">
+            <h3>9. Login Validation</h3>
+            <input type="text" id="user" placeholder="Username (admin)">
+            <input type="password" id="pass" placeholder="Password (1234)">
+            <button onclick="validateLogin()">Login</button>
+            <div id="loginMsg" class="result"></div>
+        </div>
+
+        <div class="card">
+            <h3>10. Quick Quiz</h3>
+            <p>What is 2 + 2?</p>
+            <input type="radio" name="q1" value="3"> 3 | 
+            <input type="radio" name="q1" value="4"> 4
+            <button onclick="checkQuiz()">Submit</button>
+            <div id="quizResult" class="result"></div>
+        </div>
+
+        <div class="card">
+            <h3>11. Word Counter</h3>
+            <textarea id="wordInput" oninput="countWords()" placeholder="Type here..." style="width:100%"></textarea>
+            <div id="wordCount" class="result">Words: 0</div>
+        </div>
+
+        <div class="card">
+            <h3>12. Alert Time</h3>
+            <button onclick="alertDateTime()">Show Date & Time</button>
+        </div>
+
+        <div class="card">
+            <h3>13. Toggle Enable</h3>
+            <input type="text" id="toggleInput" oninput="toggleBtn()" placeholder="Type 'unlock'...">
+            <button id="targetBtn" disabled>Target Button</button>
+        </div>
+
+        <div class="card">
+            <h3>14. Show/Hide Text</h3>
+            <button onclick="toggleVisibility()">Toggle Content</button>
+            <div id="secretBlock" class="hidden result">This is hidden content!</div>
+        </div>
+
+        <div class="card">
+            <h3>15. Even or Odd</h3>
+            <input type="number" id="numInput" placeholder="Enter number">
+            <button onclick="checkEvenOdd()">Check</button>
+            <div id="evenOddResult" class="result"></div>
+        </div>
+
+        <div class="card">
+            <h3>16. Case Converter</h3>
+            <input type="text" id="caseInput" placeholder="Text...">
+            <button onclick="changeCase('up')">UPPER</button>
+            <button onclick="changeCase('low')">lower</button>
+        </div>
+
+        <div class="card">
+            <h3>17. Simple Counter</h3>
+            <div style="display:flex; gap:10px; align-items:center;">
+                <button onclick="updateCount(-1)">-</button>
+                <span id="counterVal" style="font-size:1.5rem">0</span>
+                <button onclick="updateCount(1)">+</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>18. Vowel Counter</h3>
+            <input type="text" id="vowelInput" placeholder="Enter text">
+            <button onclick="countVowels()">Count</button>
+            <div id="vowelResult" class="result"></div>
+        </div>
+
+        <div class="card">
+            <h3>19. Animated Name</h3>
+            <input type="text" id="nameInput" placeholder="Enter name">
+            <button onclick="animateName()">Animate</button>
+            <div id="nameDisplay" class="result"></div>
+        </div>
+
+        <div class="card">
+            <h3>20. Reverse String</h3>
+            <input type="text" id="revInput" placeholder="Enter string">
+            <button onclick="reverseStr()">Reverse</button>
+            <div id="revResult" class="result"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 1. Age Calculator
+    function calculateAge() {
+        const dob = new Date(document.getElementById('dobInput').value);
+        if(!dob.getTime()) return;
+        const now = new Date();
+        let years = now.getFullYear() - dob.getFullYear();
+        let months = now.getMonth() - dob.getMonth();
+        let days = now.getDate() - dob.getDate();
+        if (days < 0) { months--; days += new Date(now.getFullYear(), now.getMonth(), 0).getDate(); }
+        if (months < 0) { years--; months += 12; }
+        document.getElementById('ageResult').innerText = `${years}Y, ${months}M, ${days}D`;
+    }
+
+    // 2. Dynamic List
+    function addToList() {
+        const val = document.getElementById('listItemInput').value;
+        if(!val) return;
+        const li = document.createElement('li');
+        li.textContent = val;
+        document.getElementById('orderedList').appendChild(li);
+        document.getElementById('listItemInput').value = '';
+    }
+
+    // 3. Font Changer
+    function changeFont() {
+        document.getElementById('fontText').style.fontFamily = document.getElementById('fontSelect').value;
+    }
+
+    // 4. Factorial
+    function showFactorial() {
+        let n = parseInt(document.getElementById('factInput').value);
+        if(n < 0) return;
+        let res = 1;
+        for(let i=1; i<=n; i++) res *= i;
+        document.getElementById('factResult').innerText = "Result: " + res;
+    }
+
+    // 5. Highlight
+    function highlightText() {
+        const key = document.getElementById('searchKey').value.toLowerCase();
+        const ps = document.querySelectorAll('#textContainer p');
+        ps.forEach(p => {
+            const text = p.textContent;
+            if(key && text.toLowerCase().includes(key)) {
+                p.innerHTML = text.replace(new RegExp(key, 'gi'), match => `<span class="highlight">${match}</span>`);
+            } else {
+                p.innerHTML = text;
+            }
+        });
+    }
+
+    // 6. Table Generator
+    function generateTable() {
+        const r = document.getElementById('rows').value;
+        const c = document.getElementById('cols').value;
+        let html = '<table>';
+        for(let i=0; i<r; i++) {
+            html += '<tr>';
+            for(let j=0; j<c; j++) html += `<td>${i+1},${j+1}</td>`;
+            html += '</tr>';
+        }
+        document.getElementById('tableArea').innerHTML = html + '</table>';
+    }
+
+    // 7. Image Preview
+    function previewImg() {
+        const file = document.getElementById('imageInput').files[0];
+        const reader = new FileReader();
+        reader.onload = e => {
+            const img = document.getElementById('imagePreview');
+            img.src = e.target.result;
+            img.classList.remove('hidden');
+        }
+        if(file) reader.readAsDataURL(file);
+    }
+
+    // 8. To-Do List
+    function addTodo() {
+        const val = document.getElementById('todoInput').value;
+        if(!val) return;
+        const li = document.createElement('li');
+        li.innerHTML = `${val} <button onclick="this.parentElement.remove()" style="width:auto; padding:2px 5px">X</button>`;
+        li.onclick = () => li.classList.toggle('completed');
+        document.getElementById('todoList').appendChild(li);
+        document.getElementById('todoInput').value = '';
+    }
+
+    // 9. Login
+    function validateLogin() {
+        const u = document.getElementById('user').value;
+        const p = document.getElementById('pass').value;
+        const msg = document.getElementById('loginMsg');
+        if(u === 'admin' && p === '1234') {
+            msg.innerText = "Success! Welcome.";
+            msg.style.color = "green";
+        } else {
+            msg.innerText = "Invalid Credentials";
+            msg.style.color = "red";
+        }
+    }
+
+    // 10. Quiz
+    function checkQuiz() {
+        const sel = document.querySelector('input[name="q1"]:checked');
+        document.getElementById('quizResult').innerText = (sel && sel.value === "4") ? "Score: 1/1" : "Score: 0/1";
+    }
+
+    // 11. Word Count
+    function countWords() {
+        const text = document.getElementById('wordInput').value.trim();
+        const count = text ? text.split(/\s+/).length : 0;
+        document.getElementById('wordCount').innerText = "Words: " + count;
+    }
+
+    // 12. Alert Time
+    function alertDateTime() {
+        alert(new Date().toLocaleString());
+    }
+
+    // 13. Toggle Button
+    function toggleBtn() {
+        const val = document.getElementById('toggleInput').value;
+        document.getElementById('targetBtn').disabled = (val !== 'unlock');
+    }
+
+    // 14. Show/Hide
+    function toggleVisibility() {
+        document.getElementById('secretBlock').classList.toggle('hidden');
+    }
+
+    // 15. Even/Odd
+    function checkEvenOdd() {
+        const n = document.getElementById('numInput').value;
+        document.getElementById('evenOddResult').innerText = n % 2 === 0 ? "Even" : "Odd";
+    }
+
+    // 16. Case
+    function changeCase(type) {
+        const inp = document.getElementById('caseInput');
+        inp.value = type === 'up' ? inp.value.toUpperCase() : inp.value.toLowerCase();
+    }
+
+    // 17. Counter
+    let count = 0;
+    function updateCount(v) {
+        count += v;
+        document.getElementById('counterVal').innerText = count;
+    }
+
+    // 18. Vowels
+    function countVowels() {
+        const str = document.getElementById('vowelInput').value;
+        const count = (str.match(/[aeiou]/gi) || []).length;
+        document.getElementById('vowelResult').innerText = "Vowels: " + count;
+    }
+
+    // 19. Animated Name
+    function animateName() {
+        const name = document.getElementById('nameInput').value;
+        const display = document.getElementById('nameDisplay');
+        display.innerHTML = '';
+        name.split('').forEach((l, i) => {
+            const span = document.createElement('span');
+            span.textContent = l === ' ' ? '\u00A0' : l;
+            span.className = 'animated-letter';
+            display.appendChild(span);
+            setTimeout(() => span.classList.add('letter-visible'), i * 100);
+        });
+    }
+
+    // 20. Reverse
+    function reverseStr() {
+        const s = document.getElementById('revInput').value;
+        document.getElementById('revResult').innerText = s.split('').reverse().join('');
+    }
+</script>
+
+</body>
+</html>
